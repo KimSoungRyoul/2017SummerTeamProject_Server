@@ -1,0 +1,123 @@
+
+
+spring:
+  profiles: product
+  mail:
+    host: smtp.gmail.com 
+    port: 587 
+    protocol: smtp 
+    default-encoding: UTF-8 
+    username: KimSoungRyoul@gmail.com 
+    password: black!5367
+    properties:
+      start-tls-enable: true 
+      auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: mysql
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+      hibernate.use_sql_comments: true
+  datasource:
+    url: jdbc:mariadb://projectarachnerdb.calqa9fo1qjj.us-west-2.rds.amazonaws.com:3306/ArachneRDB?useSSL=false
+    username: sky5367
+    password: projectarachne
+    driverClassName: org.mariadb.jdbc.Driver
+---
+
+spring: 
+  profiles: mongoTest
+  data:
+    mongodb:
+      database: arachneDB
+      port: 27017
+      host: localhost
+      
+      
+  
+    
+  
+  
+
+
+---
+
+spring:
+  profiles: dev
+  mail:
+    host: smtp.gmail.com 
+    port: 587 
+    protocol: smtp 
+    default-encoding: UTF-8 
+    username: KimSoungRyoul@gmail.com 
+    password: black!5367
+    properties:
+      start-tls-enable: true 
+      auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: mysql
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+      hibernate.use_sql_comments: true
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/android_term_project_db?useSSL=false
+    username: root
+    password: def1356
+    driverClassName: com.mysql.jdbc.Driver
+
+
+
+ 
+
+  
+ 
+    
+---
+ 
+
+spring:
+    profiles : unitTest
+    mail:
+     host: smtp.gmail.com 
+     port: 587 
+     protocol: smtp 
+     default-encoding: UTF-8 
+     username: KimSoungRyoul@gmail.com 
+     password: black!5367
+     properties:
+        start-tls-enable: true 
+        auth: true
+        mail.smtp.starttls.enable: true
+        mail.smtp.starttls.required: true
+    jpa:
+      database: h2
+      hibernate:
+        ddl-auto: create-drop
+      generate-ddl: true
+      show-sql: true
+      properties:
+        hibernate.format_sql: true
+        hibernate.use_sql_comments: true
+    
+    datasource:
+     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+     username: sa
+     password: null
+     driverClassName: org.h2.Driver    
+     
+     
+    
+     
+     
