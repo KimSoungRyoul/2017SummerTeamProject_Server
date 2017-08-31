@@ -9,42 +9,51 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
-	MemberAccountLoginService mAccountService;
+	MemberAccountLoginService userDetailService;
 
-	@Override 
-	protected void configure(HttpSecurity http) throws Exception {
-		http 
-			.csrf()
-			.disable() 
-			.authorizeRequests() 
-			.antMatchers("/user/login")
-			.permitAll() 
-			.antMatchers("/user")
-			.hasAuthority("NORMAL_USER") 
-			.antMatchers("/admin")
-			.hasAuthority("ADMIN")
-			.antMatchers("/projectmanagement")
-			.hasAuthority("PROJECT_LEADER")
-			.anyRequest()
-			.authenticated()
-			.and() 
-			
-			//.formLogin()
-			//	 .and()
-		
-			.logout();
-
-	}
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(mAccountService).passwordEncoder(mAccountService.passwordEncoder());
+		auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder);
+	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable()
+
+		
+				.httpBasic()
+				.and()
+				
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
+				.and()
+
+				.authorizeRequests().antMatchers("/login").permitAll()
+
+				.antMatchers("/user").hasAuthority("ROLE_NORMAL_USER")
+
+				.antMatchers("/admin").hasAuthority("ROLE_ADMIN")
+
+				.antMatchers("/projectmanagement").hasAuthority("ROLE_PROJECT_LEADER")
+
+				.anyRequest().authenticated().and()
+
+				//.formLogin().and()
+
+				.logout();
+
 	}
 
 	@Bean
@@ -52,4 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
+
+	/*@Bean
+	public HttpSessionStrategy httpSessionStrategy() {
+		return new HeaderHttpSessionStrategy();
+	}*/
+
 }

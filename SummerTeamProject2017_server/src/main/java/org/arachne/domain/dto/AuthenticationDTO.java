@@ -1,20 +1,17 @@
 package org.arachne.domain.dto;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 
+
+import groovy.transform.EqualsAndHashCode;
 import lombok.Data;
 
 @Data
+@EqualsAndHashCode
 public class AuthenticationDTO {
 
 	private String username;
 	private String password;
 
 	
-	@Override
-    public String toString() {
-        return ToStringBuilder
-            .reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
+	
 }

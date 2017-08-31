@@ -1,5 +1,7 @@
 package org.arachne.domain.account;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,59 +10,54 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
-@Data
+@Getter @Setter
 public class Role implements GrantedAuthority {
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1358200134345703114L;
 
 	@Id
 	@GeneratedValue
-	@Column(name="role_id")
+	@Column(name="authority_id")
 	private Long id;
 	
-
-	@ManyToOne
-	@JoinColumn(name="email", insertable=true,updatable=true)
-	private MemberAccount authAccount;
+	@Temporal(TemporalType.TIMESTAMP)
+	@CreationTimestamp
+	private Date grantedDate;
+	
 	
 	@Enumerated(EnumType.STRING)
-	private AuthorityType authorityType;
-
+	private RoleType authorityName;
+	
+	
+	@ManyToOne
+	@JoinColumn(name="member_id")
+	@JsonBackReference
+	private MemberAccount authoritiesOwner;
+	
+	
 	@Override
 	public String getAuthority() {
 		// TODO Auto-generated method stub
-		return this.authAccount.getEmail();
+		return authorityName.toString();
 	}
-	
-	
-	
-	public void setMemberAccount(MemberAccount authAccount){
-		
-		this.authAccount=authAccount;
-		
-		if(authAccount.getAuthorities().contains(authAccount)){
-			authAccount.getAuthorities().remove(this);
-		}
-		
-	}
-	
-	@Override
-    public String toString() {
-        return ToStringBuilder
-            .reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
 
 
 }

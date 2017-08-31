@@ -1,4 +1,4 @@
-package org.arachne.restapi;
+package org.arachne.presentation.restapi;
 
 import org.arachne.domain.testvo.User;
 import org.springframework.web.bind.annotation.RequestBody;

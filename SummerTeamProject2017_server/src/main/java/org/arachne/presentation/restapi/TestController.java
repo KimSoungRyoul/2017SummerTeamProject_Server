@@ -1,4 +1,4 @@
-package org.arachne.restapi;
+package org.arachne.presentation.restapi;
 
 import org.arachne.util.GcmCcsSender;
 import org.springframework.beans.factory.annotation.Autowired;

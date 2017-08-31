@@ -1,35 +1,41 @@
 package org.arachne.domain.account;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import groovy.transform.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
-@NoArgsConstructor
+@Getter @Setter
+@EqualsAndHashCode
 public class MemberAccount implements UserDetails {
 
 	/**
 	 * 
 	 */
+	@Transient
 	private static final long serialVersionUID = 1375614413821197200L;
 
 	@Id
@@ -38,15 +44,28 @@ public class MemberAccount implements UserDetails {
 	private Long id;
 
 	@NotNull
-	@Column(unique = true)
+	@Column(name = "member_email", unique = true)
 	@Email
 	private String email;
 
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date regDate;
+	
 	@NotNull
 	private String password;
 
-	// @Pattern(regexp = "^01(?:0|1|[6-9]) - (?:\\d{3}|\\d{4}) - \\d{4}$")
+	@Pattern(regexp = "^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$")
 	private String phoneNum;
+
+	@Column(name="member_name")
+	private String name;
+	
+	
+	
+	@OneToMany(mappedBy = "authoritiesOwner" ,fetch=FetchType.EAGER)
+	@JsonBackReference
+	private Set<Role> authorities = new HashSet<>();
 
 	// 계정 만료여부
 	@Column
@@ -64,24 +83,32 @@ public class MemberAccount implements UserDetails {
 	@Column
 	private boolean isEnabled;
 
-	@OneToMany(mappedBy="authAccount")
-	private List<Role> authorities = new ArrayList<>();
+	
+	//constructer-------------------
+	public MemberAccount() {
+		this.isAccountNonExpired = true;
+		this.isAccountNonLocked = true;
+		this.isCredentialsNonExpired = true;
+		this.isEnabled = true;
+	}
 
-	public MemberAccount(String email, String password, String phoneNum) {
+	public MemberAccount(String email, String password, String phoneNum,String name) {
 		super();
 		this.email = email;
 		this.password = password;
 		this.phoneNum = phoneNum;
-
+		this.name=name;
+		
+		
 		this.isAccountNonExpired = true;
 		this.isAccountNonLocked = true;
 		this.isCredentialsNonExpired = true;
 		this.isEnabled = true;
 
-		
-		
 	}
-
+	//-----------------
+	
+	
 	
 	
 	
@@ -92,18 +119,13 @@ public class MemberAccount implements UserDetails {
 		return authorities;
 	}
 
-	
-	public void setAuthorities(List<Role> authorities) {
-		this.authorities = authorities;
-	}
-
-	@Override
-	public String getPassword() {
-		return password;
+	public Set<Role> getAuthorities2() {
+		return authorities;
 	}
 
 	@Override
 	public String getUsername() {
+		// TODO Auto-generated method stub
 		return email;
 	}
 
@@ -125,14 +147,7 @@ public class MemberAccount implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return isEnabled;
 	}
 
-	
-
-	@Override
-    public String toString() {
-        return ToStringBuilder
-            .reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
 }

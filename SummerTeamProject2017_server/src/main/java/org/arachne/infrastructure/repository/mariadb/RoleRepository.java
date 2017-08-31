@@ -1,12 +1,12 @@
 package org.arachne.infrastructure.repository.mariadb;
 
-import java.util.List;
+import java.util.Set;
 
 import org.arachne.domain.account.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RoleRepository extends JpaRepository<Role, String>{
+public interface RoleRepository extends JpaRepository<Role, Long>{
 
-	public List<Role> findByAuthAccountEmail(String email);
+	public Set<Role> findByAuthoritiesOwnerEmail(String email);
 	
 }
