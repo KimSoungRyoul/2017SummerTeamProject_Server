@@ -30,6 +30,10 @@ public class MybatisSpringConfig {
             sessionFactory.setTypeAliasesPackage("org.arachne.domain");
 
             return sessionFactory.getObject();
+            
+            
+            
+            
     }
 
 
