@@ -41,7 +41,7 @@ public class MemberAccountLoginServiceImpl implements MemberAccountLoginService 
 		MemberAccount memberAccount = new MemberAccount("sky5367@naver.com", passwordEncoder.encode("1234"), "010-7237-6602","김성렬");
 
 		Role role = new Role();
-		role.setAuthorityName(RoleType.ROLE_NORMAL_USER);
+		role.setAuthority(RoleType.ROLE_NORMAL_USER);
 		role.setAuthoritiesOwner(memberAccount);
 		
 		

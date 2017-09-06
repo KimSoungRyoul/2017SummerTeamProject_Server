@@ -1,13 +1,9 @@
 package org.arachne.presentation.restapi.authentication;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.arachne.application.MemberAccountLoginService;
 import org.arachne.domain.account.MemberAccount;
-import org.arachne.domain.account.Role;
 import org.arachne.domain.dto.AuthenticationDTO;
 import org.arachne.domain.dto.AuthenticationToken;
 import org.arachne.infrastructure.repository.mariadb.MemberAccountRepository;
@@ -39,12 +35,20 @@ public class AuthenticationController {
 	@Autowired
 	MemberAccountRepository mRepository;
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/login", method = RequestMethod.POST)
 	public AuthenticationToken login(@RequestBody AuthenticationDTO authenticationRequest, HttpSession session) {
 		String username = authenticationRequest.getUsername();
 		String password = authenticationRequest.getPassword();
+		
+		
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+		
+		
+		
 		Authentication authentication = authenticationManager.authenticate(token);
+		
+		
+		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
 				SecurityContextHolder.getContext());
@@ -52,7 +56,7 @@ public class AuthenticationController {
 		
 		log.info(user.getEmail()+"----------------------------");
 		
-		return new AuthenticationToken(user.getName(), user.getAuthorities(), session.getId());
+		return new AuthenticationToken(user.getEmail(), user.getAuthorities2(), session.getId());
 	}
 
 	@GetMapping("/user")

@@ -1,8 +1,8 @@
 package org.arachne.domain.project;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,7 +36,7 @@ public class Project {
 	
 	@OneToMany
 	@JoinColumn(name="prj_mem_id")
-	private List<PrjMember> projectMembers=new ArrayList<>();
+	private Set<PrjMember> projectMembers=new HashSet<>();
 	
 	
 	

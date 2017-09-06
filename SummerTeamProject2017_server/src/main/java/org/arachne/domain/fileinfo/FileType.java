@@ -1,4 +1,4 @@
-package org.arachne.domain.project;
+package org.arachne.domain.fileinfo;
 
 public enum FileType {
 
