@@ -67,7 +67,7 @@ public class AuthenticationController {
 		return "HelloWorld";
 	}
 
-	@PostMapping
+	@PostMapping(value="/signup")
 	public String signUp(@RequestBody MemberAccount account) throws Exception {
 
 		mAccountLoginService.registerMemberAccount(account);
