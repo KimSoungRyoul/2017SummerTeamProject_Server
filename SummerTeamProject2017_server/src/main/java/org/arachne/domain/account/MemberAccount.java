@@ -108,7 +108,11 @@ public class MemberAccount implements UserDetails {
 	}
 	//-----------------
 	
-	
+	public void deleteSecurityInfo(){
+		password=null;
+		id=null;
+		authorities=null;
+	}
 	
 	
 	

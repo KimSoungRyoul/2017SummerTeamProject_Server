@@ -1,10 +1,11 @@
-package org.arachne.application;
+package org.arachne.application.impl;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
+import org.arachne.application.MemberAccountLoginService;
 import org.arachne.domain.account.MemberAccount;
 import org.arachne.domain.account.Role;
 import org.arachne.domain.account.RoleType;
@@ -37,24 +38,21 @@ public class MemberAccountLoginServiceImpl implements MemberAccountLoginService 
 	public void initAccount() {
 
 		log.info("테스트 계정 하나 생성함 ...................");
-		
-		MemberAccount memberAccount = new MemberAccount("sky5367@naver.com", passwordEncoder.encode("1234"), "010-7237-6602","김성렬");
+
+		MemberAccount memberAccount = new MemberAccount("sky5367@naver.com", passwordEncoder.encode("1234"),
+				"010-7237-6602", "김성렬");
 
 		Role role = new Role();
 		role.setAuthority(RoleType.ROLE_NORMAL_USER);
 		role.setAuthoritiesOwner(memberAccount);
-		
-		
+
 		Set<Role> roles = new HashSet<>();
 		roles.add(role);
 
-		
 		role.setAuthoritiesOwner(memberAccount);
 		memberAccount.setAuthorities(roles);
 
-		
 		registerMemberAccount(memberAccount);
-		
 
 	}
 
@@ -63,10 +61,10 @@ public class MemberAccountLoginServiceImpl implements MemberAccountLoginService 
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		MemberAccount mAccount = mAccountRepository.findOneByEmail(email);
 
-		if(mAccount==null){
+		if (mAccount == null) {
 			throw new UsernameNotFoundException("회원정보가  없어요  로그인 불가해여..........");
 		}
-		
+
 		log.info("호오 ? 로그인에 성공하셨어요  ...........");
 		return mAccount;
 	}
@@ -95,7 +93,12 @@ public class MemberAccountLoginServiceImpl implements MemberAccountLoginService 
 	public MemberAccount readUser(String email) {
 		// TODO Auto-generated method stub
 		MemberAccount mAccount = mAccountRepository.findOneByEmail(email);
-
+		
+		if (mAccount == null) {
+			throw new UsernameNotFoundException("존재하지 않는 회원입니다..........");
+		}
+		
+		mAccount.deleteSecurityInfo();
 		return mAccount;
 	}
 
@@ -106,7 +109,6 @@ public class MemberAccountLoginServiceImpl implements MemberAccountLoginService 
 
 		mAccountRepository.save(account);
 		roleRepository.save(account.getAuthorities2());
-
 
 	}
 

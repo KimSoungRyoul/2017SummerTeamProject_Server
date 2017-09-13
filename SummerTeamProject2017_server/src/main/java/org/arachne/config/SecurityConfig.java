@@ -4,6 +4,7 @@ import org.arachne.application.MemberAccountLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,6 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder);
@@ -44,22 +47,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
 				.and()
-
-				/*.authorizeRequests().antMatchers("/").permitAll()
-				.and()*/
+				
+				
+				
 				.authorizeRequests().antMatchers("/api/login").permitAll()
 
-				.antMatchers("/user/**").hasAuthority("ROLE_NORMAL_USER")
+				.antMatchers("/user/**")
+				.hasAuthority("ROLE_NORMAL_USER")
 
-				.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers("/admin/**")
+				.hasAuthority("ROLE_ADMIN")
 
-				.antMatchers("/projectmanagement/**").hasAuthority("ROLE_PROJECT_LEADER")
+				.antMatchers("/projectmanagement/**")
+				.hasAuthority("ROLE_PROJECT_LEADER")
 
-				.anyRequest().authenticated().and()
+				.antMatchers(HttpMethod.POST, "/projects")
+				.hasAuthority("ROLE_MORMAL_USER")
+				
 
-				.formLogin().and()
+				
+				
+				.anyRequest()
+				.authenticated()
+				
+				
+				.and()
 
-				.logout();
+				
+				
+				/*.formLogin()
+				.and()*/
+
+				.logout()
+				.and()
+				
+				.exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler("/error"))
+				
+				;
 
 	}
 
@@ -69,18 +93,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}*/
 
-	/* @Override
+	
+	
+	
+	 @Override
 	  public void configure(WebSecurity web) throws Exception {
 	      //spring security 제외 경로설정 
 		  web.ignoring()
-		  .antMatchers("/resources/**")
-		  .antMatchers("/v2/api-docs", "/configuration/ui",
-
-                  "/swagger-resources/**", "/configuration/security",
-
-                  "/swagger-ui.html", "/webjars/**","/swagger/**");
+		  .antMatchers("/static/**")
+		  .antMatchers("/error/**");
 	  }
-	*/
+	
 	
 
 	 

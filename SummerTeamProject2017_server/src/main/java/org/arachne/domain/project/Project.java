@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -29,6 +31,10 @@ public class Project {
 	@Length(max=225)
 	private String projectName;
 	
+	
+	@OneToOne
+	@JoinColumn(name="prj_mem_id")
+	PrjMember projectLeader;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date regDate;

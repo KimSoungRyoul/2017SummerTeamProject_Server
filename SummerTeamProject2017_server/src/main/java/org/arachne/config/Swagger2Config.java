@@ -28,7 +28,7 @@ public class Swagger2Config {
 				.select()
 				   			
 				.apis(RequestHandlerSelectors.basePackage("org.arachne.presentation.restapi"))
-				.paths(PathSelectors.ant("/api/**"))
+				.paths(PathSelectors.any())
 				.build();
 				
 	}
