@@ -28,7 +28,7 @@ public class MultiPartFIleUtilTest {
 	
 	
 	@Autowired
-	private String uploadPath;
+	private String defaultUploadPath;
 	
 	@Test
 	public void test_upload_ProfilePhotoFile(){
@@ -38,11 +38,11 @@ public class MultiPartFIleUtilTest {
 		try {
 			File file=new File("D:\\personalProject\\KimOuBinImage.jpg");
 			
-			MultipartFile multiFile=new MockMultipartFile(uploadPath+File.separator+"KimOuBinImage.jpg",
+			MultipartFile multiFile=new MockMultipartFile(defaultUploadPath+File.separator+"KimOuBinImage.jpg",
 					"KimOuBinImage.jpg", "JPG", new FileInputStream(file));
 			
 			
-			uploadFilePath=profileUploader.upload(multiFile,"test@naver.com");
+			uploadFilePath=profileUploader.upload(multiFile,"test@naver.com",defaultUploadPath);
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

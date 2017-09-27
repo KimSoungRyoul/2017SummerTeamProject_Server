@@ -2,6 +2,8 @@ package org.arachne.application.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.arachne.application.ProjectManagementService;
 import org.arachne.domain.project.Project;
 import org.arachne.infrastructure.repository.mariadb.ProjectRepository;
@@ -18,6 +20,7 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	private ProjectRepository projectRepository;
 
 	@Override
+	@Transactional
 	public void registerProject(Project project) {
 		// TODO Auto-generated method stub
 
@@ -49,6 +52,9 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 	}
 
+	
+	//자신이 프로젝트 리더로 있는 프로젝트 목록 불러오기
+	@Transactional
 	@Override
 	public List<Project> requestMem_s_ProjectList(String email) {
 		// TODO Auto-generated method stub

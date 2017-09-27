@@ -6,52 +6,47 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
 import org.imgscalr.Scalr;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import lombok.extern.log4j.Log4j;
 
 
 
 
 @Component
 @Qualifier("profile")
-@Log4j
+//@Log4j
 public class ProfilephotoFileUtil implements MultiPartFileUtil{
 
 
 	
-	private static String uploadPath= "D:\\personalProject";
 	
 	@Override
-	public String upload(MultipartFile file,String userEmail) {
+	public String upload(MultipartFile file,String userEmail,String defualtUploadPath) {
 		// TODO Auto-generated method stub
 		
 		UUID uid=UUID.randomUUID();
 		String uploadedFileName = null;
 		try {
 			String originalName=new String(file.getOriginalFilename());
-			log.info(originalName+"------------------------------");
+			//log.info(originalName+"------------------------------");
 			
 			String savedName=uid.toString()+"__"+originalName;
 			
-			log.info(savedName+"------------------------------");
+			//log.info(savedName+"-------------저장 파일 명-----------------");
 			
 			
 			
-			String savedPath=calcPath(savedName,userEmail);
+			String savedPath=calcPath(defualtUploadPath,userEmail);
 			
-			log.info(savedPath+"------------------------------");
+		//	log.info(savedPath+"-------저장 경로-----------------------");
 			
 			
-			File target=new File(uploadPath+savedPath,savedName);
+			File target=new File(defualtUploadPath+savedPath,savedName);
 			
 			FileCopyUtils.copy(file.getBytes(), target);
 
@@ -60,10 +55,10 @@ public class ProfilephotoFileUtil implements MultiPartFileUtil{
 			
 
 			if (MediaTypeUtils.getMediaType(formatName) != null) {
-				uploadedFileName = makeThumbnail(uploadPath, savedPath, savedName);
-				uploadedFileName = makeIcon(uploadPath, savedPath, savedName);
+				uploadedFileName = makeThumbnail(defualtUploadPath, savedPath, savedName);
+				uploadedFileName = makeIcon(defualtUploadPath, savedPath, savedName);
 			} else {
-				uploadedFileName = makeIcon(uploadPath, savedPath, savedName);
+				uploadedFileName = makeIcon(defualtUploadPath, savedPath, savedName);
 			}
 
 			
@@ -93,29 +88,36 @@ public class ProfilephotoFileUtil implements MultiPartFileUtil{
 	}
 	
 	
-	private static String calcPath(String savedName,String userAccount) {
+	private static String calcPath(String defaultUploadPath,String userAccount) {
 
 	
 		
 		if(userAccount.contains("."))
-			userAccount=userAccount.replaceAll(".", "_");
+			userAccount=userAccount.replace(".", "_");
+		
+		//log.info(userAccount+ "-----유저 계정 파일경로명 변경---");
 		
 		
 		
 		
 		
-		String filePath=File.separator+savedName;
+		String filePath1=File.separator+userAccount;
 		
-		filePath=File.separator+userAccount+File.separator+"profilePhoto"+filePath;
-		
-		
+		String filePath2=File.separator+userAccount+File.separator+"profilePhoto";
 		
 		
-		makeDir(uploadPath, filePath);
+		
+		
+		//log.info(filePath2+"------생성되는 폴더 ");
+		
+		
+		
+		
+		makeDir(defaultUploadPath, filePath1,filePath2);
 
 		
 
-		return filePath;
+		return filePath2;
 
 	}
 	
@@ -144,7 +146,7 @@ public class ProfilephotoFileUtil implements MultiPartFileUtil{
 	
 	
 	
-	private static void makeDir(String uploadPath, String... paths) {
+	private static void makeDir(String defaultUploadPath,String... paths) {
 
 		if (new File(paths[paths.length - 1]).exists()) {
 			return;
@@ -152,7 +154,7 @@ public class ProfilephotoFileUtil implements MultiPartFileUtil{
 
 		for (String path : paths) {
 
-			File dirPath = new File(uploadPath + path);
+			File dirPath = new File(defaultUploadPath + path);
 
 			if (!dirPath.exists()) {
 				dirPath.mkdir();
