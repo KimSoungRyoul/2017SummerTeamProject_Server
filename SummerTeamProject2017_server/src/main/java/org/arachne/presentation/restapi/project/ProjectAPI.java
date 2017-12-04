@@ -1,4 +1,4 @@
-package org.arachne.presentation.restapi;
+package org.arachne.presentation.restapi.project;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ import lombok.extern.log4j.Log4j;
 @RestController
 @RequestMapping(value = "/api/projects")
 @Log4j
-public class ProjectController {
+public class ProjectAPI {
 
 	@Autowired
 	private ProjectManagementService prjManagmentService;
@@ -58,22 +59,10 @@ public class ProjectController {
 	// 프로젝트 해체
 	@DeleteMapping
 	public ResponseEntity<Map<String, Object>> dismantleProject() {
-
+			
 		return null;
 	}
 
-	// 프로젝트 회원 참여
-	@PostMapping(value = "/members")
-	public ResponseEntity<Map<String, Object>> registerPrjMember(@RequestBody Set<PrjMember> members) {
-
-		return null;
-	}
-
-	// 프로젝트 회원 탈퇴
-	@DeleteMapping(value = "/members")
-	public ResponseEntity<Map<String, Object>> withdrawalFromProject(String userEmail, Long projectId) {
-
-		return null;
-	}
+	
 
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/error")
-public class ErrorController {
+public class ErrorAPI {
 
 	
 	

@@ -1,28 +1,36 @@
-package org.arachne.util;
+package org.arachne.util.impl;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
+import java.util.regex.Matcher;
 
 import javax.imageio.ImageIO;
 
+import org.arachne.util.MediaTypeUtils;
+import org.arachne.util.MultiPartFileUtil;
 import org.imgscalr.Scalr;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.extern.log4j.Log4j;
+
 
 
 
 @Component
-@Qualifier("profile")
-//@Log4j
+@Qualifier("profilePhoto")
+@Log4j
 public class ProfilephotoFileUtil implements MultiPartFileUtil{
 
-
+	
+	@Autowired
+	private String defaultFilePath;
 	
 	
 	@Override
@@ -84,6 +92,29 @@ public class ProfilephotoFileUtil implements MultiPartFileUtil{
 	@Override
 	public void delete(String fileName) {
 		// TODO Auto-generated method stub
+		
+		StringBuilder filePathBuilder=new StringBuilder();
+		filePathBuilder
+		.append(defaultFilePath)
+		.append(fileName);
+		
+		String filePath=filePathBuilder.toString();
+		
+		log.info(filePath);
+		
+		File file=new File(filePath);
+		file.delete();
+		
+	
+		log.info(filePath.replaceFirst("profilePhoto"+"/",
+										"profilePhoto"+Matcher.quoteReplacement(File.separator)+"s_"));
+		
+		
+		
+		file=new File(filePath.replaceFirst("profilePhoto"+"/",
+											"profilePhoto"+Matcher.quoteReplacement(File.separator)+"s_"));
+		file.delete();
+		
 		
 	}
 	

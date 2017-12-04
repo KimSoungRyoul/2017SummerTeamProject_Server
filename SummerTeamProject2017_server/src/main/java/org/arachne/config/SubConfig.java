@@ -23,7 +23,7 @@ public class SubConfig {
 	@Bean("uploadPath")
 	@Profile("dev")
 	public String uploadPath(){
-		return "D:\\personalProject";
+		return "D:\\personalProject\\SummerTeamProject2017";
 	}
 	
 	@Bean("uploadPath")

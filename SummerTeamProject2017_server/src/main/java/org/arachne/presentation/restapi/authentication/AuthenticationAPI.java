@@ -24,16 +24,21 @@ import lombok.extern.log4j.Log4j;
 
 @RestController
 @Log4j
-public class AuthenticationController {
+public class AuthenticationAPI {
 
-	@Autowired
+	
 	AuthenticationManager authenticationManager;
 
-	@Autowired
+	
 	MemberAccountLoginService mAccountLoginService;
 
 	@Autowired
-	MemberAccountRepository mRepository;
+	public AuthenticationAPI(AuthenticationManager authenticationManager,
+			MemberAccountLoginService mAccountLoginService) {
+		super();
+		this.authenticationManager = authenticationManager;
+		this.mAccountLoginService = mAccountLoginService;
+	}
 
 	@RequestMapping(value = "/api/login", method = RequestMethod.POST)
 	public AuthenticationToken login(@RequestBody AuthenticationDTO authenticationRequest, HttpSession session) {

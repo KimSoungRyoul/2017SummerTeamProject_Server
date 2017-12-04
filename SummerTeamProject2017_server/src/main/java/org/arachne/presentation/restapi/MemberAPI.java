@@ -23,7 +23,7 @@ import lombok.extern.log4j.Log4j;
 @RestController
 @RequestMapping(value="/api/members")
 @Log4j
-public class MemberController {
+public class MemberAPI {
 
 	@Autowired
 	private MemberAccountLoginService memberService;

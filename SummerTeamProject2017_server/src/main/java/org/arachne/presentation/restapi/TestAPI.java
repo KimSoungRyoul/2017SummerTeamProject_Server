@@ -12,7 +12,7 @@ import io.swagger.annotations.Api;
 @Api(value="Hello Swagger Friend")
 @RestController
 @RequestMapping(value="/api")
-public class TestController {
+public class TestAPI {
  
    
     @RequestMapping(value = "/aaa", method = RequestMethod.GET)

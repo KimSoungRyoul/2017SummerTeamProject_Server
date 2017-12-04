@@ -51,7 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				
 				
 				.authorizeRequests().antMatchers("/api/login").permitAll()
+				.antMatchers("/").permitAll()
 
+			
+				
 				.antMatchers("/user/**")
 				.hasAuthority("ROLE_NORMAL_USER")
 
@@ -101,7 +104,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	      //spring security 제외 경로설정 
 		  web.ignoring()
 		  .antMatchers("/static/**")
-		  .antMatchers("/error/**");
+		  .antMatchers("/error/**")
+		  .antMatchers("/swagger-ui.html")
+		  .antMatchers("/webjars/**")
+		  .antMatchers("/swagger-resources/**")
+		  .antMatchers("/v2/api-docs");
 	  }
 	
 	
