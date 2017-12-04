@@ -5,10 +5,15 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
+
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"></link>
+
 <head>
-<title>KSR Personl WebPage</title>
+<title>KSR Web</title>
+
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
@@ -24,6 +29,9 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 
 		
 </script>
+
+
+
 <!-- //for-mobile-apps -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
 	media="all"></link>
@@ -83,10 +91,10 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 						<li><a class="page-scroll scroll active" href="#home">Home</a></li>
 						<li><a class="page-scroll scroll" href="#about">About</a></li>
 						<li><a class="page-scroll scroll" href="#port">Portfolio</a></li>
-						<li><a class="page-scroll scroll" href="#edu">Column</a></li>
+						<li><a class="page-scroll scroll" href="#edu">칼럼</a></li>
 						<li><a class="page-scroll scroll" href="#exp">Experience</a></li>
-						<li><a  href="http://kimsoungryoul.tistory.com/" target="_blank">Tistory</a></li>
-						<li><a  href="https://github.com/KimSoungRyoul/" target="_blank">Github</a></li>
+						<li><a  href="http://kimsoungryoul.tistory.com/" target="_blank">Tistory 바로가기</a></li>
+						<li><a  href="https://github.com/KimSoungRyoul/" target="_blank">Github 바로가기</a></li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -117,13 +125,19 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		<div class="container">
 			<h3 class="w3l-heading">About me</h3>
 			<div class="col-md-4 w3-about-top">
-				<img src="images/3.jpg" class="img-responsive" alt="about-img" />
+				<img src="images/profile_image.jpg" class="img-responsive" alt="about-img"
+					style="
+border: 3px solid gold;
+border-radius: 7px;
+-moz-border-radius: 7px;
+-khtml-border-radius: 7px;
+-webkit-border-radius: 7px;
+"
+				 />
 			</div>
 			<div class="col-md-8 w3l-about">
 				<div class="w3ls-heading">
-					<h2>I'm a web designer / developer based in Toronto, Canada. I
-						have a passion for web design and love to create for web and
-						mobile devices.</h2>
+					<h2>취업용 포폴 관리 웹페이지</h2>
 				</div>
 				<div class="w3ls-about-info">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -135,8 +149,8 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 						commodo, pretium enim et, fringilla elit.</p>
 				</div>
 				<div class="w3l-button">
-					<a href="#" data-toggle="modal" data-target="#myModal">check
-						out my profile</a>
+					<a href="#" data-toggle="modal" data-target="#myModal">
+						연락처 확인하기</a>
 				</div>
 			</div>
 			<div class="clearfix"></div>
@@ -162,39 +176,39 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 						</div>
 						<div class="col-md-8 col-sm-8 col-xs-8 about-right wthree">
 							<h3>
-								Hi, i'm <span>John M. Rich </span>
+								아...귀찮다.. <span>김성렬  </span>
 							</h3>
-							<h4>Web Designer Developer</h4>
+							<h4>벡엔드 프로그래밍 공부합니다</h4>
 							<ul class="address">
 								<li>
 									<ul class="agileits-address-text ">
 										<li><b>D.O.B</b></li>
-										<li>23-06-1980</li>
+										<li>1993-08-23</li>
 									</ul>
 								</li>
 								<li>
 									<ul class="agileits-address-text">
 										<li><b>PHONE </b></li>
-										<li>+00 111 222 3333</li>
+										<li>010-7237-6602</li>
 									</ul>
 								</li>
 								<li>
 									<ul class="agileits-address-text">
 										<li><b>ADDRESS </b></li>
-										<li>756 global Place, North Sydney, Canada.</li>
+										<li>지구 한국 어딘가.....</li>
 									</ul>
 								</li>
 								<li>
 									<ul class="agileits-address-text">
 										<li><b>E-MAIL </b></li>
-										<li><a href="mailto:example@mail.com">
-												mail@example.com</a></li>
+										<li><a href="mailto:example@mail.com" target="_blank">
+												KimSoungRyoul@gmail.com</a></li>
 									</ul>
 								</li>
 								<li>
 									<ul class="agileits-address-text">
 										<li><b>WEBSITE </b></li>
-										<li><a href="http://w3layouts.com">www.myresume.com</a></li>
+										<li><a href="http://kimsoungryoul.tistory.com/">http://kimsoungryoul.tistory.com/</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -213,9 +227,9 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		</div>
 		<ul class="simplefilter">
 			<li class="active" data-filter="all">All</li>
-			<li data-filter="1">Design1</li>
-			<li data-filter="2">Design2</li>
-			<li data-filter="3">Design3</li>
+			<li data-filter="1">학부 관련</li>
+			<li data-filter="2">포럼및교류</li>
+			<li data-filter="3">창업관련</li>
 		</ul>
 
 		<div class="filtr-container">
@@ -501,10 +515,10 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 					<input type="submit" value="send"></input>
 				</form>
 				<h4>or</h4>
-				<a href="mailto:info@example.com">info@example.com</a>
-				<h5>+12 345 6789</h5>
+				<a href="mailto:info@example.com">KimSoungRyoul@gmail.com</a>
+				<h5>No Phone</h5>
 				<ul class="social-icons-w3_agile">
-					<li><a href="#"
+					<li><a href="https://www.facebook.com/profile.php"
 						class="fa fa-facebook icon icon-border facebook"> </a></li>
 					<li><a href="#" class="fa fa-twitter icon icon-border twitter">
 					</a></li>
