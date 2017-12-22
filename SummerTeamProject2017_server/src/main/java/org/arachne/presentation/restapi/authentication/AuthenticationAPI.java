@@ -1,13 +1,9 @@
 package org.arachne.presentation.restapi.authentication;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.arachne.application.MemberAccountLoginService;
 import org.arachne.domain.account.MemberAccount;
-import org.arachne.domain.account.Role;
 import org.arachne.domain.dto.AuthenticationDTO;
 import org.arachne.domain.dto.AuthenticationToken;
 import org.arachne.infrastructure.repository.mariadb.MemberAccountRepository;
@@ -28,23 +24,36 @@ import lombok.extern.log4j.Log4j;
 
 @RestController
 @Log4j
-public class AuthenticationController {
+public class AuthenticationAPI {
 
-	@Autowired
+	
 	AuthenticationManager authenticationManager;
 
-	@Autowired
+	
 	MemberAccountLoginService mAccountLoginService;
 
 	@Autowired
-	MemberAccountRepository mRepository;
+	public AuthenticationAPI(AuthenticationManager authenticationManager,
+			MemberAccountLoginService mAccountLoginService) {
+		super();
+		this.authenticationManager = authenticationManager;
+		this.mAccountLoginService = mAccountLoginService;
+	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/login", method = RequestMethod.POST)
 	public AuthenticationToken login(@RequestBody AuthenticationDTO authenticationRequest, HttpSession session) {
 		String username = authenticationRequest.getUsername();
 		String password = authenticationRequest.getPassword();
+		
+		
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+		
+		
+		
 		Authentication authentication = authenticationManager.authenticate(token);
+		
+		
+		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
 				SecurityContextHolder.getContext());
@@ -52,7 +61,7 @@ public class AuthenticationController {
 		
 		log.info(user.getEmail()+"----------------------------");
 		
-		return new AuthenticationToken(user.getName(), user.getAuthorities(), session.getId());
+		return new AuthenticationToken(user.getEmail(), user.getAuthorities2(), session.getId());
 	}
 
 	@GetMapping("/user")
@@ -63,7 +72,7 @@ public class AuthenticationController {
 		return "HelloWorld";
 	}
 
-	@PostMapping
+	@PostMapping(value="/signup")
 	public String signUp(@RequestBody MemberAccount account) throws Exception {
 
 		mAccountLoginService.registerMemberAccount(account);

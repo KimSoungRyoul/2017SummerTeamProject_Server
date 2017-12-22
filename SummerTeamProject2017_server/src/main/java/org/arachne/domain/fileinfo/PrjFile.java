@@ -7,7 +7,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
-import org.arachne.domain.project.FileType;
 import org.arachne.domain.project.PrjMember;
 
 import lombok.Data;

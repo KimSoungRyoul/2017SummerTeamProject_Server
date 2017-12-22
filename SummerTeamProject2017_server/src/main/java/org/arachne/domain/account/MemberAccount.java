@@ -23,7 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import groovy.transform.EqualsAndHashCode;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -108,7 +108,11 @@ public class MemberAccount implements UserDetails {
 	}
 	//-----------------
 	
-	
+	public void deleteSecurityInfo(){
+		password=null;
+		id=null;
+		authorities=null;
+	}
 	
 	
 	
@@ -149,5 +153,7 @@ public class MemberAccount implements UserDetails {
 		// TODO Auto-generated method stub
 		return isEnabled;
 	}
+
+
 
 }

@@ -24,12 +24,16 @@ public class MybatisSpringConfig {
             sessionFactory.setDataSource(dataSource);
             
             
-            Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*_mapper.xml");
+            Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:/mappers/*_mapper.xml");
             
             sessionFactory.setMapperLocations(res);
             sessionFactory.setTypeAliasesPackage("org.arachne.domain");
 
             return sessionFactory.getObject();
+            
+            
+            
+            
     }
 
 

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j;
 
-//@Component
+/*//@Component
 @Log4j
 public class GcmCcsSender {
  
@@ -42,4 +42,4 @@ public class GcmCcsSender {
             log.error(e.getLocalizedMessage());
         }
     }
-}
+}*/

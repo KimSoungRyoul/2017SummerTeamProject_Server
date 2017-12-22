@@ -44,7 +44,7 @@ public class Role implements GrantedAuthority {
 	
 	
 	@Enumerated(EnumType.STRING)
-	private RoleType authorityName;
+	private RoleType authority;
 	
 	
 	@ManyToOne
@@ -56,7 +56,8 @@ public class Role implements GrantedAuthority {
 	@Override
 	public String getAuthority() {
 		// TODO Auto-generated method stub
-		return authorityName.toString();
+		return authority.toString();
+		//return authoritiesOwner.getEmail();
 	}
 
 

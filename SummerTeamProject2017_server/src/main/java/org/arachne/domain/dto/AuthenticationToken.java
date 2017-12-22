@@ -2,8 +2,9 @@ package org.arachne.domain.dto;
 
 import java.util.Collection;
 
-import groovy.transform.EqualsAndHashCode;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode
